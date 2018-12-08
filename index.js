@@ -15,6 +15,7 @@ server.listen(process.env.PORT || 3000);
 // -----------------------------------------------------------------------------
 // ルーター設定
 server.post('/webhook', line.middleware(line_config), (req, res, next) => {
+    console.log('gege');
     res.sendStatus(200);
     console.log(req.body);
 });

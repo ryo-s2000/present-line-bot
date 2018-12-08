@@ -21,6 +21,8 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
 
 const bot = new line.Client(line_config);
 
+console.log('hogehoge');
+
 // -----------------------------------------------------------------------------
 // ルーター設定
 server.post('/webhook', line.middleware(line_config), (req, res, next) => {

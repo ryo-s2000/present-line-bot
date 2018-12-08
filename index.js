@@ -12,6 +12,7 @@ console.log('gegegegege');
 
 server.post('/webhook', line.middleware(line_config), (req, res, next) => {
     res.sendStatus(200);
+    console.log('ここで出ないのはおかしい')
     console.log(req.body);
 });
 

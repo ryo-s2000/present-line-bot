@@ -16,7 +16,7 @@ server.listen(process.env.PORT || 3000);
 // ルーター設定
 server.post('/webhook', line.middleware(line_config), (req, res, next) => {
     res.sendStatus(200);
-    console.log('hoho');
+    console.log('gegegegege');
     console.log(req.body);
 });
 

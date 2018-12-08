@@ -10,16 +10,16 @@ const line_config = {
 
 // -----------------------------------------------------------------------------
 // Webサーバー設定
-server.listen(process.env.PORT || 3000);
+// server.listen(process.env.PORT || 3000);
 
 // -----------------------------------------------------------------------------
 // ルーター設定
-server.post('/webhook', line.middleware(line_config), (req, res, next) => {
-    res.sendStatus(200);
-    console.log(req.body);
-});
+// server.post('/webhook', line.middleware(line_config), (req, res, next) => {
+//     res.sendStatus(200);
+//     console.log(req.body);
+// });
 
-const bot = new line.Client(line_config);
+// const bot = new line.Client(line_config);
 
 console.log('hoho');
 
@@ -27,13 +27,14 @@ console.log('hoho');
 // ルーター設定
 
 server.post('/webhook', function (req, res) {
+    res.sendStatus(200);
   console.log('gege');
     let events_processed = [];
 
-    events_processed.push(bot.replyMessage(event.replyToken, {
-                    type: "text",
-                    text: "これはこれは"
-                }));
+    // events_processed.push(bot.replyMessage(event.replyToken, {
+    //                 type: "text",
+    //                 text: "これはこれは"
+    //             }));
 });
 
 // server.post('/webhook', line.middleware(line_config), (req, res, next) => {

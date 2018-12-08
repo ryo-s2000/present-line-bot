@@ -15,7 +15,6 @@ server.listen(process.env.PORT || 3000);
 // -----------------------------------------------------------------------------
 // ルーター設定
 server.post('/webhook', line.middleware(line_config), (req, res, next) => {
-    console.log('gege');
     res.sendStatus(200);
     console.log(req.body);
 });
@@ -26,6 +25,11 @@ console.log('hogehoge');
 
 // -----------------------------------------------------------------------------
 // ルーター設定
+
+server.post('/webhook', function (req, res) {
+  console.log('hoge');
+});
+
 server.post('/webhook', line.middleware(line_config), (req, res, next) => {
     // 先行してLINE側にステータスコード200でレスポンスする。
     res.sendStatus(200);

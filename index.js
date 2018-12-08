@@ -28,6 +28,12 @@ console.log('hoho');
 
 server.post('/webhook', function (req, res) {
   console.log('gege');
+    let events_processed = [];
+
+    events_processed.push(bot.replyMessage(event.replyToken, {
+                    type: "text",
+                    text: "これはこれは"
+                }));
 });
 
 // server.post('/webhook', line.middleware(line_config), (req, res, next) => {

@@ -25,7 +25,7 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
                 // res.on('data', (chunk) => {
                                 events_processed.push(bot.replyMessage(event.replyToken, {
                                 type: "text",
-                                text: res
+                                text: '{"twitter":{"data":"{\n  \"document_id\": \"846c7c8e-6158-47e9-9b57-2f5c6eb0181e\",\n  \"status\": \"processing\"\n}"}}'
                             }));
                 // });
             })

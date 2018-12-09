@@ -18,20 +18,19 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
 
     req.body.events.forEach((event) => {
         if (event.type == "message" && event.message.type == "text"){
-            // event.message.textをTwitterAPIに入れる。
-            // WatsonAPIに入れる
-
-            // if (event.message.text == "よろしく"){
-            //     events_processed.push(bot.replyMessage(event.replyToken, {
-            //         type: "text",
-            //         text: "これはこれは"
-            //     }));
-            // }
-            events_processed.push(bot.replyMessage(event.replyToken, {
-                    type: "text",
-                    text: event.message.text // WatsonAPIのレスポンス
-                }));
+            url = "https://powerful-refuge-14937.herokuapp.com/api/watson_data/" + event.message.text
+            const https = require('https');
+            const reqest = https.request(url, (res) => {
+                res.on('data', (chunk) => {
+                                events_processed.push(bot.replyMessage(event.replyToken, {
+                                type: "text",
+                                text: chunk
+                            }));
+                });
+            })
+            reqest.end();
         }
+
     });
 
     Promise.all(events_processed).then(

@@ -21,7 +21,7 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
             url = "https://powerful-refuge-14937.herokuapp.com/api/watson_data/" + event.message.text
             const https = require('https');
             const reqest = https.request(url, (res) => {
-                console.log('new-applicatin');
+                console.log(res);
                 // res.on('data', (chunk) => {
                                 events_processed.push(bot.replyMessage(event.replyToken, {
                                 type: "text",

@@ -25,7 +25,7 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
                 // res.on('data', (chunk) => {
                                 events_processed.push(bot.replyMessage(event.replyToken, {
                                 type: "text",
-                                text: 'chunk'
+                                text: res
                             }));
                 // });
             })

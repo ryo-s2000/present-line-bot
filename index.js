@@ -22,12 +22,12 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
             const https = require('https');
             const reqest = https.request(url, (res) => {
                 console.log('new-applicatin');
-                res.on('data', (chunk) => {
+                // res.on('data', (chunk) => {
                                 events_processed.push(bot.replyMessage(event.replyToken, {
                                 type: "text",
                                 text: chunk
                             }));
-                });
+                // });
             })
             reqest.end();
         }

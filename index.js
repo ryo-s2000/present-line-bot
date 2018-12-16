@@ -21,46 +21,39 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
     let events_processed = [];
 
     req.body.events.forEach((event) => {
+        
         console.log("---------event type---------")
         console.log(event.type)
         console.log("---------event type---------")
         console.log("---------event---------")
         console.log(event)
         console.log("---------event---------")
+
+
+        const message = {
+            type: 'text',
+            text: 'OK!!!!!!'
+        };
+
         if (event.type == 'follow'){
-            // ids += event.source.userId
-            console.log("---------userId complete---------")
-            console.log(event.userId)
-            console.log("---------userId complete---------")
             console.log("---------source.userId complete---------")
             console.log(event.source.userId)
             console.log("---------source.userId complete---------")
         }
 
         if (event.type == "message" && event.message.type == "text"){
-            events_processed.push(bot.replyMessage(event.replyToken, {
-                type: "text",
-                text: event.message.text
-            }));
+            bot.pushMessage('U4754a0dfcb7f227de1149a3d4e135fb8', message)
+            // events_processed.push(bot.replyMessage(event.replyToken, {
+            //     type: "text",
+            //     text: event.message.text
+            // }));
         }
     });
 
-    Promise.all(events_processed).then(
-        (response) => {
-            console.log(`${response.length} event(s) processed.`);
-        }
-    );
+    // Promise.all(events_processed).then(
+    //     (response) => {
+    //         console.log(`${response.length} event(s) processed.`);
+    //     }
+    // );
 
 });
-
-
-
-
-
-
-// const message = {
-//   type: 'text',
-//   text: 'Hello World!'
-// };
-
-// bot.pushMessage('userIds', message)

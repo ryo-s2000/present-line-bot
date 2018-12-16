@@ -35,14 +35,7 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
                 text: event.message.text
             };
 
-            bot.pushMessage('U4754a0dfcb7f227de1149a3d4e135fb8', message);
+            bot.pushMessage(userIds[0], message);
         }
     });
-
-    // Promise.all(events_processed).then(
-    //     (response) => {
-    //         console.log(`${response.length} event(s) processed.`);
-    //     }
-    // );
-
 });

@@ -34,8 +34,10 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
                 type: 'text',
                 text: event.message.text
             };
-
-            bot.pushMessage(userIds[0], message);
+            
+            for(var i = 1, i <= userIds.length, i++){
+                bot.pushMessage(userIds[i], message);
+            }
         }
     });
 });

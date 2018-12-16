@@ -24,36 +24,18 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
 
     req.body.events.forEach((event) => {
         
-        console.log("---------event type---------")
-        console.log(event.type)
-        console.log("---------event type---------")
-        console.log("---------event---------")
-        console.log(event)
-        console.log("---------event---------")
-
-
-        const message = {
-            type: 'text',
-            text: 'OK!!!!!!'
-        };
-
         if (event.type == 'follow'){
-            console.log("---------source.userId complete---------")
-            console.log(event.source.userId);
             userIds.push(event.source.userId);
-            console.log(userIds);
-            console.log("---------source.userId complete---------")
         }
 
         if (event.type == "message" && event.message.type == "text"){
-            // console.log(userIds[0])
-            // bot.pushMessage('U4754a0dfcb7f227de1149a3d4e135fb8', event.message.text)
-            bot.pushMessage('U4754a0dfcb7f227de1149a3d4e135fb8', "event.message.text");
-            // bot.pushMessage(userIds[0], event.message.text);
-            // events_processed.push(bot.replyMessage(event.replyToken, {
-            //     type: "text",
-            //     text: event.message.text
-            // }));
+
+            let message = {
+                type: 'text',
+                text: event.message.text
+            };
+
+            bot.pushMessage('U4754a0dfcb7f227de1149a3d4e135fb8', message);
         }
     });
 

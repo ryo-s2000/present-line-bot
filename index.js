@@ -48,6 +48,7 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
         if (event.type == "message" && event.message.type == "text"){
             console.log(userIds[0])
             // bot.pushMessage('U4754a0dfcb7f227de1149a3d4e135fb8', event.message.text)
+            bot.pushMessage('U4754a0dfcb7f227de1149a3d4e135fb8', event.message.text);
             bot.pushMessage(userIds[0], event.message.text);
             // events_processed.push(bot.replyMessage(event.replyToken, {
             //     type: "text",

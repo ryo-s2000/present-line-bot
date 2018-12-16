@@ -12,6 +12,8 @@ server.listen(process.env.PORT || 3000);
 
 const bot = new line.Client(line_config);
 
+let userIds = [];
+
 // サーバー設定
 
 server.post('/webhook', line.middleware(line_config), (req, res, next) => {
@@ -37,12 +39,15 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
 
         if (event.type == 'follow'){
             console.log("---------source.userId complete---------")
-            console.log(event.source.userId)
+            console.log(event.source.userId);
+            userIds.push(event.source.userId);
+            console.log(userIds);
             console.log("---------source.userId complete---------")
         }
 
         if (event.type == "message" && event.message.type == "text"){
-            bot.pushMessage('U4754a0dfcb7f227de1149a3d4e135fb8', message)
+            // bot.pushMessage('U4754a0dfcb7f227de1149a3d4e135fb8', event.message.text)
+            bot.pushMessage(userIds[0], event.message.text);
             // events_processed.push(bot.replyMessage(event.replyToken, {
             //     type: "text",
             //     text: event.message.text

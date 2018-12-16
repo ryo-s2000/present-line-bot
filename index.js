@@ -35,7 +35,7 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
                 text: event.message.text
             };
 
-            for(var i = 1; i <= userIds.length; i++){
+            for(var i = 0; i <= userIds.length - 1; i++){
                 "console.log(userIds[i])"
                 console.log(userIds[i])
                 "console.log(userIds[i])"

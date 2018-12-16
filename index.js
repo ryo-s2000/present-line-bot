@@ -36,10 +36,7 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
             };
 
             for(var i = 0; i <= userIds.length - 1; i++){
-                "console.log(userIds[i])"
-                console.log(userIds[i])
-                "console.log(userIds[i])"
-                // bot.pushMessage(userIds[i], message);
+                bot.pushMessage(userIds[i], message);
             }
         }
     });

@@ -38,6 +38,7 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
             user_ids[uuid] = line_user_id;
             fs.writeFile('./user_ids.json', JSON.stringify(user_ids));
             //バリデーション処理
+            //herokuに上がっているファイルを参照すれば良いのでは?
         }
 
         if (event.type == "message" && event.message.type == "text"){

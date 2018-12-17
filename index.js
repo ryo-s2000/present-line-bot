@@ -58,9 +58,13 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
             //     }
             // }
 
-            for(key in user_ids){
-                bot.pushMessage(user_ids[key], message);
-            }
+
+            console.log(user_ids);
+            // for(key in user_ids){
+            //     bot.pushMessage(user_ids[key], message);
+            // }
+
+
 
         }
     });

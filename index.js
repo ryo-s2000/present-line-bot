@@ -1,5 +1,3 @@
-// メイン処理
-
 var fs = require('fs');
 
 const server = require("express")();
@@ -36,9 +34,28 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
             let line_user_id = event.source.userId;
 
             user_ids[uuid] = line_user_id;
-            fs.writeFile('./user_ids.json', JSON.stringify(user_ids));
+
+            function unlink(path) {
+			  fs.unlink(path, function (err) {
+			    if (err) {
+			        throw err;
+			    }
+			  });
+			}
+
+			function writeFile(path, data) {
+			  fs.writeFile(path, data, function (err) {
+			    if (err) {
+			        throw err;
+			    }
+			  });
+			}
+
+            unlink('./user_ids.json');
+			writeFile('./user_ids.json', JSON.stringify(user_ids));
             //バリデーション処理
             //herokuに上がっているファイルを参照すれば良いのでは?
+            //アクセス制限
         }
 
         if (event.type == "message" && event.message.type == "text"){
@@ -48,24 +65,10 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
                 text: event.message.text
             };
 
-            // var user_ids_unique = user_ids.filter(function (x, i, self) {
-            //     return self.indexOf(x) === i;
-            // });
-
-            // for(var i = 0; i <= user_ids_unique.length - 1; i++){
-            //     if(user_ids_unique[i] != event.source.userId){
-            //         bot.pushMessage(user_ids_unique[i], message);
-            //     }
-            // }
-
-
-            console.log(user_ids);
-            // for(key in user_ids){
-            //     bot.pushMessage(user_ids[key], message);
-            // }
-
-
-
+			for(key in user_ids){
+			    bot.pushMessage(user_ids[key], message);
+			}
+			
         }
     });
 });

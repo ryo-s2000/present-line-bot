@@ -20,10 +20,25 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
 
     var user_ids = require('./user_ids.json');
 
+    function unlink(path) {
+      fs.unlink(path, function (err) {
+        if (err) {
+            throw err;
+        }
+      });
+    }
+
+    function writeFile(path, data) {
+      fs.writeFile(path, data, function (err) {
+        if (err) {
+            throw err;
+        }
+      });
+    }
+
     req.body.events.forEach((event) => {
         
         if (event.type == 'follow'){
-
             function getUniqueStr(myStrong){
                 var strong = 1000;
                 if (myStrong) strong = myStrong;
@@ -35,31 +50,30 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
 
             user_ids[uuid] = line_user_id;
 
-            function unlink(path) {
-			  fs.unlink(path, function (err) {
-			    if (err) {
-			        throw err;
-			    }
-			  });
-			}
-
-			function writeFile(path, data) {
-			  fs.writeFile(path, data, function (err) {
-			    if (err) {
-			        throw err;
-			    }
-			  });
-			}
-
             unlink('./user_ids.json');
 			writeFile('./user_ids.json', JSON.stringify(user_ids));
+
+            console.log('------updated follow function------');
+            console.log(user_ids);
+            console.log('------updated follow function------');
             //バリデーション処理
-            //herokuに上がっているファイルを参照すれば良いのでは?
-            //アクセス制限
+            //外部からjsonファイルへのアクセス制限をかける
+        }
+
+        if (event.type == 'unfollow'){
+            for(key in user_ids){
+                if(user_ids[key] == event.source.userId){
+                    delete user_ids[key]
+                    writeFile('./user_ids.json', JSON.stringify(user_ids));
+
+                    console.log('------updated unfollow function------');
+                    console.log(user_ids);
+                    console.log('------updated unfollow function------');
+                }
+            }
         }
 
         if (event.type == "message" && event.message.type == "text"){
-
             let message = {
                 type: 'text',
                 text: event.message.text
@@ -69,9 +83,8 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
                 if(user_ids[key] != event.source.userId){
                     bot.pushMessage(user_ids[key], message);
                 }
-
 			}
-			
         }
+
     });
 });

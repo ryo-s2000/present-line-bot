@@ -44,7 +44,6 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
                 if(user_ids_unique[i] != event.source.userId){
                     bot.pushMessage(user_ids_unique[i], message);
                 }
-                // bot.pushMessage(user_ids_unique[i], message);
             }
 
         }

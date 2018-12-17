@@ -12,7 +12,7 @@ server.listen(process.env.PORT || 3000);
 
 const bot = new line.Client(line_config);
 
-let userIds = [];
+let user_ids = [];
 
 // サーバー設定
 
@@ -25,7 +25,8 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
     req.body.events.forEach((event) => {
         
         if (event.type == 'follow'){
-            userIds.push(event.source.userId);
+            user_ids.push(event.source.userId);
+            //配列に入れたデータが無くならないように仕様変更
         }
 
         if (event.type == "message" && event.message.type == "text"){
@@ -35,9 +36,16 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
                 text: event.message.text
             };
 
-            for(var i = 0; i <= userIds.length - 1; i++){
-                bot.pushMessage(userIds[i], message);
+            var user_ids_unique = user_ids.filter(function (x, i, self) {
+                return self.indexOf(x) === i;
+            });
+
+            for(var i = 0; i <= user_ids_unique.length - 1; i++){
+                if(user_ids_unique[i] != event.source.userId){
+                    bot.pushMessage(user_ids_unique[i], message);
+                }
             }
+
         }
     });
 });

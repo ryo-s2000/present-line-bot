@@ -15,7 +15,7 @@ const bot = new line.Client(line_config);
 // サーバー設定
 
 server.post('/webhook', line.middleware(line_config), (req, res, next) => {
-    
+
     res.sendStatus(200);
 
     var user_ids = require('./user_ids.json');
@@ -37,7 +37,7 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
     }
 
     req.body.events.forEach((event) => {
-        
+
         if (event.type == 'follow'){
             function getUniqueStr(myStrong){
                 var strong = 1000;
@@ -51,7 +51,7 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
             user_ids[uuid] = line_user_id;
 
             unlink('./user_ids.json');
-			writeFile('./user_ids.json', JSON.stringify(user_ids));
+            writeFile('./user_ids.json', JSON.stringify(user_ids));
 
             console.log('------updated follow function------');
             console.log(user_ids);
@@ -79,7 +79,7 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
                 text: event.message.text
             };
 
-			for(key in user_ids){
+            for(key in user_ids){
                 if(user_ids[key] != event.source.userId){
                     bot.pushMessage(user_ids[key], message);
                 }

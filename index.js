@@ -56,8 +56,6 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
             console.log('------updated follow function------');
             console.log(user_ids);
             console.log('------updated follow function------');
-            //バリデーション処理
-            //外部からjsonファイルへのアクセス制限をかける
         }
 
         if (event.type == 'unfollow'){
@@ -83,7 +81,7 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
                 if(user_ids[key] != event.source.userId){
                     bot.pushMessage(user_ids[key], message);
                 }
-			}
+	    }
         }
 
     });

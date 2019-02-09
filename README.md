@@ -1,9 +1,9 @@
 # present-line-bot
 12/8-12/9のWEハッカソンで作ったline-botです。
 
-https://qiita.com/nkjm/items/38808bbc97d6927837cd
+https://qiita.com/Ryo_Suzuki/items/6ac6b31921178bb78978
 
-やり方は全てここに書いてあります。
+Qiita書きました。
 
 ![QRcode](https://github.com/ryo-s2000/present-line-bot/blob/master/image/qr.png "QRcode")
 
